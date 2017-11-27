@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'dnt_devops_cmdb',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'HOST': '20.26.33.208',
         'PORT': '3306',
     }
 }
