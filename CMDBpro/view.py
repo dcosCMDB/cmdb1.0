@@ -11,8 +11,8 @@ class UserForm(forms.Form):
     password = forms.CharField(label='password',widget=forms.PasswordInput())
 
 def login(request):
-	if request.method == 'GET':
-		return render(request, 'login.html')
+    if request.method == 'GET':
+        return render(request, 'login.html')
 
     if request.method == 'POST':
         uf = UserForm(request.POST)
