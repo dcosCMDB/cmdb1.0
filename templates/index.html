@@ -5,7 +5,8 @@
         <meta charset="utf-8">
         <title>表格</title>
         <!-- Bootstrap3.3.5 CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        {% load static %}
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
         <style>
             .panel-group{max-height:770px;overflow: auto;}
@@ -122,8 +123,8 @@
         </div>
       </div>
    </div>
-        <script src="js/jquery-3.2.1.min.js "></script>
-        <script src="js/bootstrap.min.js "></script>
+        <script rel="stylesheet" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script rel="stylesheet" src="{% static 'js/bootstrap.min.js' %}"></script>
         <script>
         $(function(){
             $(".panel-heading").click(function(e){

@@ -10,6 +10,15 @@ class UserForm(forms.Form):
     username = forms.CharField(label='username',max_length=100)
     password = forms.CharField(label='password',widget=forms.PasswordInput())
 
+def index(request):
+    is_login = request.session.get('IS_LOGIN', False)
+    if is_login:
+        response = HttpResponseRedirect('/')
+        return render(request, 'index.html')
+    else:
+        response = HttpResponseRedirect('/')
+        return render(request, 'login.html')
+
 def login(request):
     if request.method == 'GET':
         return render(request, 'login.html')
