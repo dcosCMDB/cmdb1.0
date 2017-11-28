@@ -16,12 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from . import view as login_views
+from hostlist import views as host_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^login', login_views.login),
     url(r'^logout', login_views.logout),
-
     url(r'^index', login_views.index),
+
+    url(r'^showhost', host_views.showhost),
 ]

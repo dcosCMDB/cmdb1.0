@@ -14,7 +14,7 @@ def index(request):
     is_login = request.session.get('IS_LOGIN', False)
     if is_login:
         response = HttpResponseRedirect('/')
-        return render(request, 'index.html')
+        return render(request, 'base.html')
     else:
         response = HttpResponseRedirect('/')
         return render(request, 'login.html')
@@ -39,6 +39,8 @@ def login(request):
                 return response
             else:
                 #比较失败，还在login
+                return render(request, 'login.html')
+        else:
                 return render(request, 'login.html')
                 
 def logout(request):

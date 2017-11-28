@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block mainbody %}
+<table class="table">
+    <caption>主机列表</caption>
+   <thead>
+      <tr>
+         <th>ip</th>
+         <th>主机名</th>
+         <th>区域</th>
+         <th>CPU</th>
+         <th>内存</th>
+         <th>文件系统</th>
+
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>1.1.1.1</td>
+         <td>test</td>
+         <td>sd</td>
+         <td>4</td>
+         <td>32</td>
+         <td>nas</td>
+      </tr>
+      <tr>
+         <td>2.2.2.2</td>
+         <td>test</td>
+         <td>sd</td>
+         <td>4</td>
+         <td>32</td>
+         <td>nas</td>
+      </tr>
+   </tbody>
+</table>
+{% endblock %}
+{% block script %}
+        <script rel="stylesheet" src="{% static 'js/hostlist.js' %}"></script>
+{% endblock %}
