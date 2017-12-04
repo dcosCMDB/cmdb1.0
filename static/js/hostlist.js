@@ -24,7 +24,14 @@ $.get("/searchhost", function (ret) {
 				'</tr>'
         $('#hosttbody').append(context)
 	}
+	addline="<tr class='info'>"+
+         	"<td colspan='7'><a href='#' onclick='test()'><span class='glyphicon glyphicon-plus'></span></a></td>"+
+     		"</tr>"
+    $('#hosttbody').append(addline)
 })
+function test(){
+alert('test')
+}
 
 /*table script*/
 $(document).ready(function() {
