@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^index', login_views.index),
 
     url(r'^showhost', host_views.showhost),
+    url(r'^searchhost', host_views.searchhost),
 ]

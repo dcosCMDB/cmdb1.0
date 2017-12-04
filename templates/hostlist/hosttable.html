@@ -1,39 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block style %}
+<link href="{% static 'css/hostlist.css' %}" rel="stylesheet">
+{% endblock %}
 {% block mainbody %}
-<table class="table">
-    <caption>主机列表</caption>
-   <thead>
+<div class="form-group pull-right">
+    <input type="text" class="search form-control" placeholder="What you looking for?">
+</div>
+选中<span id="numofselect">0</span>个<span class="counter pull-right"></span>
+<table class="table table-hover table-bordered results">
+  <thead>
       <tr>
+         <th><a href="#" onclick="checkall()">全选</a><span>||</span><a href="#" onclick="reverse()">反选</a></th>
          <th>ip</th>
          <th>主机名</th>
          <th>区域</th>
          <th>CPU</th>
          <th>内存</th>
          <th>文件系统</th>
+      </tr>
+      <tr class="warning no-result">
+         <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+      </tr>
+  </thead>
+  <tbody id="hosttbody">
 
-      </tr>
-   </thead>
-   <tbody>
-      <tr>
-         <td>1.1.1.1</td>
-         <td>test</td>
-         <td>sd</td>
-         <td>4</td>
-         <td>32</td>
-         <td>nas</td>
-      </tr>
-      <tr>
-         <td>2.2.2.2</td>
-         <td>test</td>
-         <td>sd</td>
-         <td>4</td>
-         <td>32</td>
-         <td>nas</td>
-      </tr>
-   </tbody>
+  </tbody>
 </table>
+
 {% endblock %}
 {% block script %}
         <script rel="stylesheet" src="{% static 'js/hostlist.js' %}"></script>

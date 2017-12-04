@@ -14,3 +14,11 @@ def showhost(request):
     else:
         response = HttpResponseRedirect('/')
         return render(request, 'login.html')
+
+def searchhost(request):
+    findall=dcos_host.objects.all()
+    hostlist=[]
+    for item in findall:
+    	hostlist.append({"hostip":item.host_ip,"hostname":item.host_name,"env":item.env,"cpu":item.cpu,"mem":item.mem,"filesys":item.filesys})
+    host_res = {"hostlist": hostlist}
+    return HttpResponse(json.dumps(host_res), content_type='application/json')
