@@ -22,7 +22,7 @@ $.get("/searchhost", function (ret) {
 				'<td>'+mem+'</td>'+
 				'<td>'+filesys+'</td>'+
 				'</tr>'
-        addrow(context)
+        $('#hosttbody').append(context)
 	}
 	addline="<tr class='info'>"+
          	"<td colspan='7'><a href='#' onclick='test()'><span class='glyphicon glyphicon-plus'></span></a></td>"+
