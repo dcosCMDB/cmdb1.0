@@ -16,6 +16,30 @@
             .leftMenu .menu-item-left{padding: 2px; background: transparent; border:1px solid transparent;border-radius: 6px;}
             .leftMenu .menu-item-left:hover{background:#C4E3F3;border:1px solid #1E90FF;}
         </style>
+
+        <!-- Tablesorter: required -->
+        <link rel="stylesheet" href="{% static 'css/theme.blue.css' %}">
+        <script src="{% static 'js/jquery-latest.min.js' %}"></script>
+        <script src="{% static 'js/jquery.tablesorter.js' %}"></script>
+        <script>$(function() {
+
+          $("table").tablesorter({ theme : 'blue', sortList: [[3,1],[0,0]] });
+
+          // Add two new rows using the "addRows" method
+          // the "update" method doesn't work here because not all
+          // rows are present in the table when the pager is applied
+          function addrow(row){
+              $row = $(row),
+              // resort table using the current sort; set to false to prevent resort, otherwise
+              // any other value in resort will automatically trigger the table resort.
+              resort = true;
+            $('table')
+              .find('tbody').append($row)
+              .trigger('addRows', [$row, resort]);
+            return false;
+          };
+
+        });</script>
         {% block style %}
 
         {% endblock %}
@@ -130,8 +154,8 @@
    </div>
         <script rel="stylesheet" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
         <script rel="stylesheet" src="{% static 'js/bootstrap.min.js' %}"></script>
-        {% block script %}
         <script rel="stylesheet" src="{% static 'js/base.js' %}"></script>
+        {% block script %}
         {% endblock %}
         <script>
         $(function(){

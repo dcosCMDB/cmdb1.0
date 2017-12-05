@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from . import view as login_views
 from hostlist import views as host_views
+from cronlist import views as cron_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,4 +28,7 @@ urlpatterns = [
 
     url(r'^showhost', host_views.showhost),
     url(r'^searchhost', host_views.searchhost),
+
+    url(r'^showcron', cron_views.showcron),
+
 ]

@@ -1,2 +1,2 @@
 /*init*/
-$('#hostlistbtn').attr("style","color:#337ab7");
+$('#cronlistbtn').attr("style","color:#337ab7");
