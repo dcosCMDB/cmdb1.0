@@ -1,66 +1,53 @@
 /*init*/
+function newtable(hostres){
+$('#hosttable').bootstrapTable({
+    search: true,  //是否显示搜索框功能
+    pagination: true,  //是否分页
+    showRefresh: true, //是否显示刷新功能
+    iconSize: 'outline',
+   // toolbar: '#exampleTableEventsToolbar', 可以在table上方显示的一条工具栏，
+    icons: {
+      refresh: 'glyphicon-repeat',
+      toggle: 'glyphicon-list-alt'
+    },
+  columns: [{
+      field: 'hostip',
+      title: 'ip',
+      sortable: true
+  }, {
+      field: 'hostname',
+      title: '主机名',
+      sortable: true
+  }, {
+      field: 'env',
+      title: '区域',
+      sortable: true
+  }, {
+      field: 'cpu',
+      title: 'CPU',
+      sortable: true
+  }, {
+      field: 'mem',
+      title: '内存',
+      sortable: true
+  }, {
+      field: 'filesys',
+      title: '文件系统'
+  },{
+      title: '<a href="#" onclick="checkall()">全选</a><span>||</span><a href="#" onclick="reverse()">反选</a>(<span id="numofselect">0</span>)', field: 'check',
+        formatter: function (val, row, idx) {
+          return '<input type="checkbox" class="select" onclick="changenum()"">';
+        }
+  }],
+  data: hostres
+});
+}
 $('#hostlistbtn').attr("style","color:#337ab7");
 $.get("/searchhost", function (ret) {
 	hostlist=ret.hostlist
-	for (i=0;i<hostlist.length;i++){
-		hostip=hostlist[i].hostip
-		hostname=hostlist[i].hostname
-		env=hostlist[i].env
-		cpu=hostlist[i].cpu
-		mem=hostlist[i].mem
-		filesys=hostlist[i].filesys
-		console.log(cpu)
-		console.log(mem)
-		context='<tr>'+
-				'<th>'+
-				'<input type="checkbox" class="select" onclick="changenum()"">'+
-				'</th>'+
-				'<td>'+hostip+'</td>'+
-				'<td>'+hostname+'</td>'+
-				'<td>'+env+'</td>'+
-				'<td>'+cpu+'</td>'+
-				'<td>'+mem+'</td>'+
-				'<td>'+filesys+'</td>'+
-				'</tr>'
-        $('#hosttbody').append(context)
+  newtable(hostlist)
 	}
-	addline="<tr class='info'>"+
-         	"<td colspan='7'><a href='#' onclick='test()'><span class='glyphicon glyphicon-plus'></span></a></td>"+
-     		"</tr>"
-    $('#hosttbody').append(addline)
-})
-function test(){
-alert('test')
-}
-
-/*table script*/
-$(document).ready(function() {
-  $(".search").keyup(function () {
-  	clearall()
-    var searchTerm = $(".search").val();
-    var listItem = $('.results tbody').children('tr');
-    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-    
-  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
-        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-    }
-  });
-    
-  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','false');
-  });
-
-  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','true');
-  });
-
-  var jobCount = $('.results tbody tr[visible="true"]').length;
-    $('.counter').text(jobCount + ' item');
-
-  if(jobCount == '0') {$('.no-result').show();}
-    else {$('.no-result').hide();}
-      });
-});
+)
 
 /*check option*/
 function changenum(){
