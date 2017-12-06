@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+{% endblock %}
+{% block mainbody %}
+<table id="bashtable"></table>
+<a href='#' onclick='test()'><span class='glyphicon glyphicon-plus'></span> Add Bash</a>
+{% endblock %}
+{% block script %}
+        <script rel="stylesheet" src="{% static 'js/bashlist.js' %}"></script>
+{% endblock %}

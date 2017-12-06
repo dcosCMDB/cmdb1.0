@@ -57,6 +57,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR + "/templates",
                  BASE_DIR + "/templates/hostlist",
+                 BASE_DIR + "/templates/bashlist",
                  BASE_DIR + "/templates/cronlist",
                  BASE_DIR + "/templates/clusterlist",
                  BASE_DIR + "/templates/componentlist",
