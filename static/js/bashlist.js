@@ -1,6 +1,6 @@
 /*init*/
 function newtable(cronres){
-$('#crontable').bootstrapTable({
+$('#bashtable').bootstrapTable({
     search: true,  //是否显示搜索框功能
     pagination: true,  //是否分页
     showRefresh: true, //是否显示刷新功能
@@ -39,13 +39,13 @@ $('#crontable').bootstrapTable({
           return '<button onclick="cat(this)""></button>';
         }
   }],
-  data: cronres
+  data: bashres
 });
 }
-$('#cronlistbtn').attr("style","color:#337ab7");
-$.get("/searchcron", function (ret) {
-	cronlist=ret.cronlist
-  newtable(cronlist)
+$('#bashlistbtn').attr("style","color:#337ab7");
+$.get("/searchbash", function (ret) {
+	bashlist=ret.bashlist
+  newtable(bashlist)
 	}
 )
 
