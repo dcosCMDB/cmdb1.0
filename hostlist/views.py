@@ -24,10 +24,22 @@ def searchhost(request):
     host_res = {"hostlist": hostlist}
     return HttpResponse(json.dumps(host_res), content_type='application/json')
 
-def testping(requests):
-    testiplist=['20.26.33.206']
+def testping(request):
+    testiplist=request.GET.get("iplist").split(';')
     pingresult=[]
     for item in testiplist:
-        pingresult.append({"hostip":item,"ping":ping(item)})
+        state=0
+        info=''
+        pres=ping(item)
+        if len(pres['contacted'].items())==0 and len(pres['dark'].items())==0:
+            state=1
+            info='ip not in ansible inventory'
+        elif len(pres['dark'].items())==0 and pres['contacted'].items()[0][0]==item:
+            state=0
+            info='ping ok'
+        elif pres['dark'].items()[0][0]!='':
+            state=1
+            info='not known'
+        pingresult.append({"hostip":item,"state":state,"info":info})
     ping_res = {"pingres":pingresult}
     return HttpResponse(json.dumps(ping_res), content_type='application/json')

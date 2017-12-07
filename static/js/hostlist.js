@@ -112,10 +112,17 @@ function testping(){
   for(var i=0;i<ho.length;i++){
     iplist.push(ho[i].textContent)
   }
-  console.log(iplist)
-  // $.get("/testping", function (ret) {
-  //   result=ret.result
-  //   newtable(result)
-  //   }
-  // )
+  $.get("/testping",{'iplist': iplist.join(';')}, function (ret) {
+      result=ret.pingres
+      console.log(result)
+      $('#modalresult').html('')
+      for(var i=0;i<result.length;i++){
+        if(result[i].state==0)
+          context=$("<p style='color:green'></p>").text(result[i].hostip+'--'+result[i].info)
+        else
+          context=$("<p style='color:red'></p>").text(result[i].hostip+'--'+result[i].info)
+        $('#modalresult').append(context)
+      }
+    }
+  )
 }
