@@ -29,6 +29,7 @@ urlpatterns = [
 
     url(r'^showhost', host_views.showhost),
     url(r'^searchhost', host_views.searchhost),
+    url(r'^testping', host_views.testping),
 
     url(r'^showbash', bash_views.showbash),
 

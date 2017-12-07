@@ -5,6 +5,7 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 import json
 from CMDBpro.models import dcos_host
+from Ansible.hostoption import ping
 
 def showhost(request):
     is_login = request.session.get('IS_LOGIN', False)
@@ -22,3 +23,11 @@ def searchhost(request):
     	hostlist.append({"hostip":item.host_ip,"hostname":item.host_name,"env":item.env,"cpu":item.cpu,"mem":item.mem,"filesys":item.filesys})
     host_res = {"hostlist": hostlist}
     return HttpResponse(json.dumps(host_res), content_type='application/json')
+
+def testping(requests):
+    testiplist=['20.26.33.206']
+    pingresult=[]
+    for item in testiplist:
+        pingresult.append({"hostip":item,"ping":ping(item)})
+    ping_res = {"pingres":pingresult}
+    return HttpResponse(json.dumps(ping_res), content_type='application/json')

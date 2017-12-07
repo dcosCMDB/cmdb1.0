@@ -3,13 +3,6 @@ function newtable(hostres){
 $('#hosttable').bootstrapTable({
     search: true,  //是否显示搜索框功能
     pagination: true,  //是否分页
-    showRefresh: true, //是否显示刷新功能
-    iconSize: 'outline',
-   // toolbar: '#exampleTableEventsToolbar', 可以在table上方显示的一条工具栏，
-    icons: {
-      refresh: 'glyphicon-repeat',
-      toggle: 'glyphicon-list-alt'
-    },
   columns: [{
       field: 'hostip',
       title: 'ip',
@@ -99,4 +92,30 @@ function clearall(){
         ho[i].checked=false;
     }
     $("#numofselect").html(numofselect)
+}
+
+function dooptions(){
+    var ho=$(".select");
+    $('#modaliplist').html('')
+    for(var i=0;i<ho.length;i++){
+      if (ho[i].checked==true){
+        context=$("<p></p>").text(ho[i].parentElement.parentElement.firstElementChild.textContent);
+        $('#modaliplist').append(context)
+      }
+    }
+    $('#mymodal').modal('show')
+}
+
+function testping(){
+  var iplist=[]
+  var ho=$('#modaliplist p')
+  for(var i=0;i<ho.length;i++){
+    iplist.push(ho[i].textContent)
+  }
+  console.log(iplist)
+  // $.get("/testping", function (ret) {
+  //   result=ret.result
+  //   newtable(result)
+  //   }
+  // )
 }
