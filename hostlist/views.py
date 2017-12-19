@@ -67,4 +67,4 @@ def md5check(request):
             info='not known'
         md5result.append({"hostip":item,"state":state,"info":info})
     md5_res = {"md5res":md5result}
-    return HttpResponse(json.dumps(ping_res), content_type='application/json')
+    return HttpResponse(json.dumps(md5_res), content_type='application/json')
