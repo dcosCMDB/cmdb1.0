@@ -19,6 +19,8 @@ from . import view as login_views
 from hostlist import views as host_views
 from bashlist import views as bash_views
 from cronlist import views as cron_views
+from componentlist import views as component_views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -34,5 +36,7 @@ urlpatterns = [
     url(r'^showbash', bash_views.showbash),
 
     url(r'^showcron', cron_views.showcron),
+
+    url(r'^changecomp', component_views.changecomp),
 
 ]
