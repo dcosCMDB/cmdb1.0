@@ -106,12 +106,17 @@ function dooptions(){
     $('#mymodal').modal('show')
 }
 
-function testping(){
+function getcheckedhost(){
   var iplist=[]
   var ho=$('#modaliplist p')
   for(var i=0;i<ho.length;i++){
     iplist.push(ho[i].textContent)
   }
+  return iplist
+}
+
+function testping(){
+  var iplist=getcheckedhost()
   $.get("/testping",{'iplist': iplist.join(';')}, function (ret) {
       result=ret.pingres
       console.log(result)
@@ -126,3 +131,21 @@ function testping(){
     }
   )
 }
+
+function md5check(){
+  var iplist=getcheckedhost()
+  $.get("/md5check",{'iplist': iplist.join(';')}, function (ret) {
+      result=ret.md5res
+      console.log(result)
+      $('#modalresult').html('')
+      for(var i=0;i<result.length;i++){
+        if(result[i].state==0)
+          context=$("<p style='color:green'></p>").text(result[i].hostip+'--'+result[i].info)
+        else
+          context=$("<p style='color:red'></p>").text(result[i].hostip+'--'+result[i].info)
+        $('#modalresult').append(context)
+      }
+    }
+  )
+}
+
