@@ -115,19 +115,23 @@ function getcheckedhost(){
   return iplist
 }
 
+function resultshow(result){
+    console.log(result)
+    $('#modalresult').html('')
+    for(var i=0;i<result.length;i++){
+      if(result[i].state==0)
+        context=$("<p style='color:green'></p>").text(result[i].hostip+'--'+result[i].info)
+      else
+        context=$("<p style='color:red'></p>").text(result[i].hostip+'--'+result[i].info)
+      $('#modalresult').append(context)
+    }
+}
+
 function testping(){
   var iplist=getcheckedhost()
   $.get("/testping",{'iplist': iplist.join(';')}, function (ret) {
       result=ret.pingres
-      console.log(result)
-      $('#modalresult').html('')
-      for(var i=0;i<result.length;i++){
-        if(result[i].state==0)
-          context=$("<p style='color:green'></p>").text(result[i].hostip+'--'+result[i].info)
-        else
-          context=$("<p style='color:red'></p>").text(result[i].hostip+'--'+result[i].info)
-        $('#modalresult').append(context)
-      }
+      resultshow(result)
     }
   )
 }
@@ -136,16 +140,11 @@ function md5check(){
   var iplist=getcheckedhost()
   $.get("/md5check",{'iplist': iplist.join(';')}, function (ret) {
       result=ret.md5res
-      console.log(result)
-      $('#modalresult').html('')
-      for(var i=0;i<result.length;i++){
-        if(result[i].state==0)
-          context=$("<p style='color:green'></p>").text(result[i].hostip+'--'+result[i].info)
-        else
-          context=$("<p style='color:red'></p>").text(result[i].hostip+'--'+result[i].info)
-        $('#modalresult').append(context)
-      }
+      resultshow(result)
     }
   )
 }
 
+function showlogs(){
+  alert('test')
+}
