@@ -146,5 +146,10 @@ function md5check(){
 }
 
 function showlogs(){
-  alert('test')
+  var iplist=getcheckedhost()
+  $.get("/showlogs",{'iplist': iplist.join(';')}, function (ret) {
+      result=ret.logres
+      resultshow(result)
+    }
+  )
 }
