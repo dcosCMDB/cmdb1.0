@@ -88,3 +88,9 @@ def testfile(request):
     filename=request.GET.get("filename")
     test_res={"testres":filename}
     return HttpResponse(json.dumps(test_res), content_type='application/json')
+
+def copyfile(request):
+    filename=request.GET.get("filename")
+    iplist=request.GET.get("iplist").split(';')
+    copy_res={"copyres":filename,"iplist":iplist}
+    return HttpResponse(json.dumps(copy_res), content_type='application/json')

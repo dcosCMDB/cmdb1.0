@@ -163,7 +163,7 @@ function copyfile(){
 }
 
 function testfile(){
-  filename=$('#copysrcfile')
+  var filename=$('#copysrcfile').val()
   $.get("/testfile",{'filename': filename}, function (ret) {
       result=ret.testres
       alert(result)
@@ -172,5 +172,11 @@ function testfile(){
 }
 
 function copy(){
-  alert('copy')
+  var filename=$('#copysrcfile').val()
+  var iplist=getcheckedhost()
+  $.get("/copyfile",{'filename': filename,'iplist': iplist.join(';')}, function (ret) {
+      result=ret.copyres
+      alert(result)
+    }
+  )
 }
