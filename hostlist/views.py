@@ -83,3 +83,8 @@ def showlogs(request):
         logresult.append({"hostip":item,"state":result['state'],"info":result['info']})
     log_res = {"logres":logresult}
     return HttpResponse(json.dumps(log_res), content_type='application/json')
+
+def testfile(request):
+    filename=request.GET.get("filename")
+    test_res={"testres":filename}
+    return HttpResponse(json.dumps(test_res), content_type='application/json')

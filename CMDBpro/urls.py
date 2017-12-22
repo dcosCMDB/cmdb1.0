@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^testping', host_views.testping),
     url(r'^md5check', host_views.md5check),
     url(r'^showlogs', host_views.showlogs),
+    url(r'^testfile', host_views.testfile),
 
     url(r'^showbash', bash_views.showbash),
 

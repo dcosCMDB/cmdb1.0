@@ -117,6 +117,7 @@ function getcheckedhost(){
 
 function resultshow(result){
     console.log(result)
+    $('#modalresult').html('')
     for(var i=0;i<result.length;i++){
       if(result[i].state==0)
         context=$("<pre style='color:green'></pre>").text(result[i].hostip+'\n'+result[i].info)
@@ -158,6 +159,18 @@ function showlogs(){
 
 function copyfile(){
   $('#modalresult').html('wait...')
-  var iplist=getcheckedhost()
-  alert('test')
+  $('#file').modal('show');
+}
+
+function testfile(){
+  filename=$('#copysrcfile')
+  $.get("/testfile",{'filename': filename}, function (ret) {
+      result=ret.testres
+      alert(result)
+    }
+  )
+}
+
+function copy(){
+  alert('copy')
 }

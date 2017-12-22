@@ -59,6 +59,40 @@
       </div><!-- /.modal-content -->
     </div>
 </div>
+
+
+<div class="modal fade" id="file" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title">
+               输入源文件地址
+            </h4>
+         </div>
+         <div class="modal-body">
+   <div class="input-group">
+      <input type="text" class="form-control" placeholder="Hostip:FilePath" id="copysrcfile">
+      <span class="input-group-btn">
+        <button class="btn btn-success" type="button" onclick='testfile()'>Test</button>
+      </span>
+    </div><!-- /input-group -->
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-info" onclick="copy()">
+               Copy
+            </button>          
+            <button type="button" class="btn btn-primary" onclick="$('#file').modal('hide');">
+               关闭
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+    </div>
+</div>
 {% endblock %}
 {% block script %}
         <script rel="stylesheet" src="{% static 'js/hostlist.js' %}"></script>
