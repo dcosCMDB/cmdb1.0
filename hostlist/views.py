@@ -5,7 +5,7 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 import json
 from CMDBpro.models import dcos_host
-from Ansible.hostoption import ping,md5sum
+from Ansible.hostoption import ping,md5sum,findlogs
 
 def showhost(request):
     is_login = request.session.get('IS_LOGIN', False)
@@ -79,7 +79,7 @@ def showlogs(request):
     testiplist=request.GET.get("iplist").split(';')
     logresult=[]
     for item in testiplist:
-        result=getinfo(showlogs(item),item)
+        result=getinfo(findlogs(item))
         logresult.append({"hostip":item,"state":result['state'],"info":result['info']})
-    md5_res = {"logres":logresult}
-    return HttpResponse(json.dumps(md5_res), content_type='application/json')
+    log_res = {"logres":logresult}
+    return HttpResponse(json.dumps(log_res), content_type='application/json')
