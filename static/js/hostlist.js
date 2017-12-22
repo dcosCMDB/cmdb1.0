@@ -117,17 +117,17 @@ function getcheckedhost(){
 
 function resultshow(result){
     console.log(result)
-    $('#modalresult').html('')
     for(var i=0;i<result.length;i++){
       if(result[i].state==0)
-        context=$("<p style='color:green'></p>").text(result[i].hostip+'--'+result[i].info)
+        context=$("<pre style='color:green'></pre>").text(result[i].hostip+'\n'+result[i].info)
       else
-        context=$("<p style='color:red'></p>").text(result[i].hostip+'--'+result[i].info)
+        context=$("<pre style='color:red'></pre>").text(result[i].hostip+'\n'+result[i].info)
       $('#modalresult').append(context)
     }
 }
 
 function testping(){
+  $('#modalresult').html('wait...')
   var iplist=getcheckedhost()
   $.get("/testping",{'iplist': iplist.join(';')}, function (ret) {
       result=ret.pingres
@@ -137,6 +137,7 @@ function testping(){
 }
 
 function md5check(){
+  $('#modalresult').html('wait...')
   var iplist=getcheckedhost()
   $.get("/md5check",{'iplist': iplist.join(';')}, function (ret) {
       result=ret.md5res
@@ -146,10 +147,17 @@ function md5check(){
 }
 
 function showlogs(){
+  $('#modalresult').html('wait...')
   var iplist=getcheckedhost()
   $.get("/showlogs",{'iplist': iplist.join(';')}, function (ret) {
       result=ret.logres
       resultshow(result)
     }
   )
+}
+
+function copyfile(){
+  $('#modalresult').html('wait...')
+  var iplist=getcheckedhost()
+  alert('test')
 }

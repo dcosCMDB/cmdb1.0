@@ -79,7 +79,7 @@ def showlogs(request):
     testiplist=request.GET.get("iplist").split(';')
     logresult=[]
     for item in testiplist:
-        result=getinfo(findlogs(item))
+        result=getinfo(findlogs(item),item)
         logresult.append({"hostip":item,"state":result['state'],"info":result['info']})
     log_res = {"logres":logresult}
     return HttpResponse(json.dumps(log_res), content_type='application/json')
