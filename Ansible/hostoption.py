@@ -20,7 +20,7 @@ def md5sum(hostip,filename):
     md5res = md5runner.run()
     return md5res
 
-def showlogs(hostip):
+def findlogs(hostip):
     logrunner = ansible.runner.Runner(
         module_name='shell',
         module_args='find /data/logs -name "*.log*"|xargs du -h|sort -hr|head -10',
