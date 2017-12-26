@@ -5,7 +5,7 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 import json
 from CMDBpro.models import dcos_host
-import Ansible.hostoption
+from Ansible import hostoption
 
 def showhost(request):
     is_login = request.session.get('IS_LOGIN', False)
@@ -94,11 +94,11 @@ def testfile(request):
 
 def testdest(request):
     destpath=request.GET.get("destpath")
-    iplist=request.GET.get("iplist")
+    iplist=request.GET.get("iplist").split(';')
     destres=[]
     for destip in iplist:
         result=getinfo(hostoption.desttest(destip,destpath),destip)
-        destres.append({"hostip":item,"state":result['state'],"info":result['info']})
+        destres.append({"hostip":destip,"state":result['state'],"info":result['info']})
     dest_res = {"destres":destres}
     return HttpResponse(json.dumps(dest_res), content_type='application/json')
 
@@ -112,7 +112,7 @@ def copyfile(request):
         result=getinfo(hostoption.desttest(destip,destpath),destip)
         if result['state']!=0:
             flag=1
-        destres.append({"hostip":item,"state":result['state'],"info":result['info']})
+        destres.append({"hostip":destip,"state":result['state'],"info":result['info']})
     testresult=getinfo(hostoption.filetest(hostip,filename),hostip)
     if testresult['state']!=0:
         flag=1
@@ -124,6 +124,6 @@ def copyfile(request):
         copyres=[]
         for destip in iplist:
             result=getinfo(hostoption.filecopy(destip,hostip,filename),destip)
-            copyres.append({"hostip":item,"state":result['state'],"info":result['info']})
+            copyres.append({"hostip":destip,"state":result['state'],"info":result['info']})
         copy_res = {"copyres":copyres}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
