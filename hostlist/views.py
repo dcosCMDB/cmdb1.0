@@ -89,17 +89,20 @@ def testfile(request):
     hostip=request.GET.get("hostip")
     result=getinfo(hostoption.filetest(hostip,filename),hostip)
     testres={"hostip":hostip,"state":result['state'],"info":result['info']}
-    test_res={"testres":testres}
+    test_res={"testres":testres,'state':result['state']}
     return HttpResponse(json.dumps(test_res), content_type='application/json')
 
 def testdest(request):
     destpath=request.GET.get("destpath")
     iplist=request.GET.get("iplist").split(';')
     destres=[]
+    flag=0
     for destip in iplist:
         result=getinfo(hostoption.desttest(destip,destpath),destip)
+        if result['state']!=0:
+            flag=1
         destres.append({"hostip":destip,"state":result['state'],"info":result['info']})
-    dest_res = {"destres":destres}
+    dest_res = {"destres":destres,'state':flag}
     return HttpResponse(json.dumps(dest_res), content_type='application/json')
 
 def copyfile(request):
@@ -118,12 +121,13 @@ def copyfile(request):
         flag=1
         testres={"hostip":hostip,"state":result['state'],"info":result['info']}
     if flag==1:
-        copy_res={'srcres':testres,'destres':destres}
+        copyres={'srcres':testres,'destres':destres}
+        copy_res={"copyres":copyres,'state':1}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
     else:
         copyres=[]
         for destip in iplist:
             result=getinfo(hostoption.filecopy(destip,hostip,filename),destip)
             copyres.append({"hostip":destip,"state":result['state'],"info":result['info']})
-        copy_res = {"copyres":copyres}
+        copy_res = {"copyres":copyres,'state':0}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
