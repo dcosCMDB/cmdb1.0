@@ -156,6 +156,13 @@ function showlogs(){
     }
   )
 }
+function disablecopy(){
+  $('#filetestbtn').removeClass('btn-success')
+  $('#filetestbtn').addClass('btn-default')
+  $('#desttestbtn').removeClass('btn-success')
+  $('#desttestbtn').addClass('btn-default')
+  $('#copybtn').attr('disabled','disabled')
+}
 
 function copyfile(){
   $('#modalresult').html('wait...')
@@ -192,6 +199,9 @@ function testdest(){
   var destpath=$('#copydestpath').val()
   if (destpath[destpath.length-1]!='/'){
     alert("destpath should end with '/' !")
+  }
+  if (destpath[0]!='/'){
+    alert("destpath should begin with '/' !")
   }
   else{
     var iplist=getcheckedhost()
