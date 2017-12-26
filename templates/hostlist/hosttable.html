@@ -88,14 +88,14 @@
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="DestPath/" id="copydestpath">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" id="desttestbtn" type="button" onclick='testdest()'>Test</button>
+                    <button class="btn btn-default" id="filedestbtn" type="button" onclick='testdest()'>Test</button>
                   </span>
                 </div><!-- /input-group -->
               </div><!-- /.col-lg-6 -->
             </div><!-- /.row -->
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-info" onclick="copy()">
+            <button type="button" class="btn btn-info" id="copybtn" onclick="copy()" disabled="disabled">
                Copy
             </button>          
             <button type="button" class="btn btn-primary" onclick="$('#file').modal('hide');">

@@ -177,8 +177,11 @@ function testfile(){
         alert(result['info'])
       }
       else{
-        $('#filetestbtn').removeclass('btn-default')
-        $('#filetestbtn').addclass('btn-success')
+        $('#filetestbtn').removeClass('btn-default')
+        $('#filetestbtn').addClass('btn-success')
+        if($('#desttestbtn').hasClass('btn-success')){
+          $('#copybtn').removeAttr('disabled')
+        }
       }
     }
     )
@@ -199,8 +202,11 @@ function testdest(){
         alert(result['info'])
       }
       else{
-        $('#filetestbtn').removeclass('btn-default')
-        $('#filetestbtn').addclass('btn-success')
+        $('#desttestbtn').removeClass('btn-default')
+        $('#desttestbtn').addClass('btn-success')
+        if($('#filetestbtn').hasClass('btn-success')){
+          $('#copybtn').removeAttr('disabled')
+        }
       }
     }
     )
