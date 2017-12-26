@@ -172,7 +172,14 @@ function testfile(){
     var filename=filesrc.split(':')[1]
     $.get("/testfile",{'filename': filename,'hostip':hostip}, function (ret) {
       result=ret.testres
-      console.log(result)
+      state=ret.state
+      if(state!=0){
+        alert(result['info'])
+      }
+      else{
+        $('#filetestbtn').removeclass('btn-default')
+        $('#filetestbtn').addclass('btn-success')
+      }
     }
     )
   }
@@ -187,7 +194,14 @@ function testdest(){
     var iplist=getcheckedhost()
     $.get("/testdest",{'destpath': destpath,'iplist': iplist.join(';')}, function (ret) {
       result=ret.destres
-      console.log(result)
+      state=ret.state
+      if(state!=0){
+        alert(result['info'])
+      }
+      else{
+        $('#filetestbtn').removeclass('btn-default')
+        $('#filetestbtn').addclass('btn-success')
+      }
     }
     )
   }
@@ -204,7 +218,7 @@ function copy(){
     var filename=filesrc.split(':')[1]
     $.get("/copyfile",{'filename': filename,'hostip':hostip,'iplist': iplist.join(';')}, function (ret) {
       result=ret.copyres
-      console.log(result)
+      state=ret.state
     }
     )
   }
