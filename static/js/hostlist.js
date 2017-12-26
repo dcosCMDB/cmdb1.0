@@ -163,20 +163,49 @@ function copyfile(){
 }
 
 function testfile(){
-  var filename=$('#copysrcfile').val()
-  $.get("/testfile",{'filename': filename}, function (ret) {
+  var filesrc=$('#copysrcfile').val()
+  if(filesrc.split(':').length!=2){
+    alert('illegal filename! filename should be hostip:filepath')
+  }
+  else{
+    var hostip=filesrc.split(':')[0]
+    var filename=filesrc.split(':')[1]
+    $.get("/testfile",{'filename': filename,'hostip':hostip}, function (ret) {
       result=ret.testres
       alert(result)
     }
-  )
+    )
+  }
+}
+
+function testdest(){
+  var destpath=$('#copydestpath').val()
+  if (destpath[destpath.length-1]!='/'){
+    alert("destpath should end with '/' !")
+  }
+  else{
+    var iplist=getcheckedhost()
+    $.get("/testdest",{'destpath': destpath,'iplist':iplist}, function (ret) {
+      result=ret.testres
+      alert(result)
+    }
+    )
+  }
 }
 
 function copy(){
-  var filename=$('#copysrcfile').val()
   var iplist=getcheckedhost()
-  $.get("/copyfile",{'filename': filename,'iplist': iplist.join(';')}, function (ret) {
-      result=ret.copyres
+  var filesrc=$('#copysrcfile').val()
+  if(filesrc.split(':').length!=2){
+    alert('illegal filename! filename should be hostip:filepath')
+  }
+  else{
+    var hostip=filesrc.split(':')[0]
+    var filename=filesrc.split(':')[1]
+    $.get("/copyfile",{'filename': filename,'hostip':hostip,'iplist': iplist.join(';')}, function (ret) {
+      result=ret.testres
       alert(result)
     }
-  )
+    )
+  }
 }

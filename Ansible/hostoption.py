@@ -28,3 +28,30 @@ def findlogs(hostip):
         forks=10)
     logres = logrunner.run()
     return logres
+
+def filetest(hostip,filename):
+    testrunner = ansible.runner.Runner(
+        module_name='shell',
+        module_args='ls '+filename,
+        pattern=hostip,
+        forks=10)
+    testres = testrunner.run()
+    return testres
+
+def desttest(hostip,destpath):
+    testrunner = ansible.runner.Runner(
+        module_name='shell',
+        module_args='ls '+destpath,
+        pattern=hostip,
+        forks=10)
+    testres = testrunner.run()
+    return testres
+
+def filecopy(destip,hostip,filename):
+    testrunner = ansible.runner.Runner(
+        module_name='shell',
+        module_args='scp '+hostip+':'+filename+' '+destip,
+        pattern=hostip,
+        forks=10)
+    testres = testrunner.run()
+    return testres

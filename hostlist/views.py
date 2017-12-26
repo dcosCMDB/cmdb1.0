@@ -5,7 +5,7 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 import json
 from CMDBpro.models import dcos_host
-from Ansible.hostoption import ping,md5sum,findlogs
+import Ansible.hostoption
 
 def showhost(request):
     is_login = request.session.get('IS_LOGIN', False)
@@ -30,7 +30,7 @@ def testping(request):
     for item in testiplist:
         state=0
         info=''
-        pres=ping(item)
+        pres=hostoption.ping(item)
         if len(pres['contacted'].items())==0 and len(pres['dark'].items())==0:
             state=1
             info='ip not in ansible inventory'
@@ -70,7 +70,7 @@ def md5check(request):
     testiplist=request.GET.get("iplist").split(';')
     md5result=[]
     for item in testiplist:
-        result=getinfo(md5sum(item,'/tmp/test.py'),item)
+        result=getinfo(hostoption.md5sum(item,'/tmp/test.py'),item)
         md5result.append({"hostip":item,"state":result['state'],"info":result['info']})
     md5_res = {"md5res":md5result}
     return HttpResponse(json.dumps(md5_res), content_type='application/json')
@@ -79,18 +79,51 @@ def showlogs(request):
     testiplist=request.GET.get("iplist").split(';')
     logresult=[]
     for item in testiplist:
-        result=getinfo(findlogs(item),item)
+        result=getinfo(hostoption.findlogs(item),item)
         logresult.append({"hostip":item,"state":result['state'],"info":result['info']})
     log_res = {"logres":logresult}
     return HttpResponse(json.dumps(log_res), content_type='application/json')
 
 def testfile(request):
     filename=request.GET.get("filename")
-    test_res={"testres":filename}
+    hostip=request.GET.get("hostip")
+    result=getinfo(hostoption.filetest(hostip,filename),hostip)
+    testres={"hostip":hostip,"state":result['state'],"info":result['info']}
+    test_res={"testres":testres}
     return HttpResponse(json.dumps(test_res), content_type='application/json')
 
+def testdest(request):
+    destpath=request.GET.get("destpath")
+    iplist=request.GET.get("iplist")
+    destres=[]
+    for destip in iplist:
+        result=getinfo(hostoption.desttest(destip,destpath),destip)
+        destres.append({"hostip":item,"state":result['state'],"info":result['info']})
+    dest_res = {"destres":destres}
+    return HttpResponse(json.dumps(dest_res), content_type='application/json')
+
 def copyfile(request):
+    hostip=request.GET.get("hostip")
     filename=request.GET.get("filename")
     iplist=request.GET.get("iplist").split(';')
-    copy_res={"copyres":filename,"iplist":iplist}
-    return HttpResponse(json.dumps(copy_res), content_type='application/json')
+    flag=0
+    destres=[]
+    for destip in iplist:
+        result=getinfo(hostoption.desttest(destip,destpath),destip)
+        if result['state']!=0:
+            flag=1
+        destres.append({"hostip":item,"state":result['state'],"info":result['info']})
+    testresult=getinfo(hostoption.filetest(hostip,filename),hostip)
+    if testresult['state']!=0:
+        flag=1
+        testres={"hostip":hostip,"state":result['state'],"info":result['info']}
+    if flag==1:
+        copy_res={'srcres':testres,'destres':destres}
+        return HttpResponse(json.dumps(copy_res), content_type='application/json')
+    else:
+        copyres=[]
+        for destip in iplist:
+            result=getinfo(hostoption.filecopy(destip,hostip,filename),destip)
+            copyres.append({"hostip":item,"state":result['state'],"info":result['info']})
+        copy_res = {"copyres":copyres}
+        return HttpResponse(json.dumps(copy_res), content_type='application/json')
