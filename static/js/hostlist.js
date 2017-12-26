@@ -156,11 +156,15 @@ function showlogs(){
     }
   )
 }
-function disablecopy(){
-  $('#filetestbtn').removeClass('btn-success')
-  $('#filetestbtn').addClass('btn-default')
-  $('#desttestbtn').removeClass('btn-success')
-  $('#desttestbtn').addClass('btn-default')
+function disablecopy(flag){
+  if(flag==1){
+    $('#filetestbtn').removeClass('btn-success')
+    $('#filetestbtn').addClass('btn-default')
+  }
+  if(flag==2){
+    $('#desttestbtn').removeClass('btn-success')
+    $('#desttestbtn').addClass('btn-default')
+  }
   $('#copybtn').attr('disabled','disabled')
 }
 
@@ -199,9 +203,11 @@ function testdest(){
   var destpath=$('#copydestpath').val()
   if (destpath[destpath.length-1]!='/'){
     alert("destpath should end with '/' !")
+    return
   }
   if (destpath[0]!='/'){
     alert("destpath should begin with '/' !")
+    return
   }
   else{
     var iplist=getcheckedhost()
