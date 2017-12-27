@@ -94,6 +94,7 @@ function clearall(){
     $("#numofselect").html(numofselect)
 }
 
+/*options main*/
 function dooptions(){
     var ho=$(".select");
     $('#modaliplist').html('')
@@ -127,6 +128,7 @@ function resultshow(result){
     }
 }
 
+/*options detail*/
 function testping(){
   $('#modalresult').html('wait...')
   var iplist=getcheckedhost()
@@ -139,9 +141,15 @@ function testping(){
 
 function md5check(){
   $('#modalresult').html('wait...')
+  $('#md5').modal('show')
+}
+
+function getmd5(){
   var iplist=getcheckedhost()
-  $.get("/md5check",{'iplist': iplist.join(';')}, function (ret) {
+  var filename=$('#md5file').val()
+  $.get("/md5check",{'iplist': iplist.join(';'),'filename':filename}, function (ret) {
       result=ret.md5res
+      $('#md5').modal('hide')
       resultshow(result)
     }
   )
@@ -254,7 +262,26 @@ function copy(){
     $.get("/copyfile",{'filename': filename,'hostip':hostip,'iplist': iplist.join(';'),'destpath':destpath}, function (ret) {
       result=ret.copyres
       state=ret.state
-      console.log(result)
+      if(state!=0){
+        destres=result['destres']
+        srcres=result['srcres']
+        context=''
+        for(i in destres){
+          context+=destres[i].hostip+':'+destres[i].info+'\n'
+        }
+        if(srcres.hasOwnProperty('info')){
+          context+=srcres.info
+        }
+        alert(context)
+        $('#filetestbtn').removeClass('btn-success')
+        $('#filetestbtn').addClass('btn-default')
+        $('#desttestbtn').removeClass('btn-success')
+        $('#desttestbtn').addClass('btn-default')
+        $('#copybtn').attr('disabled','disabled')
+      }
+      else{
+        alert('copy ok!')
+      }
     }
     )
   }

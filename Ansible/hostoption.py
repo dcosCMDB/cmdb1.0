@@ -54,5 +54,4 @@ def filecopy(destip,hostip,filename,destpath):
         pattern=destip,
         forks=1)
     testres = testrunner.run()
-    print testres
     return testres

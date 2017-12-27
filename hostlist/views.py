@@ -68,9 +68,10 @@ def getinfo(result,hostip):
 
 def md5check(request):
     testiplist=request.GET.get("iplist").split(';')
+    filename=request.GET.get("filename")
     md5result=[]
     for item in testiplist:
-        result=getinfo(hostoption.md5sum(item,'/tmp/test.py'),item)
+        result=getinfo(hostoption.md5sum(item,filename),item)
         md5result.append({"hostip":item,"state":result['state'],"info":result['info']})
     md5_res = {"md5res":md5result}
     return HttpResponse(json.dumps(md5_res), content_type='application/json')
@@ -123,16 +124,13 @@ def copyfile(request):
         flag=1
         testres={"hostip":hostip,"state":testresult['state'],"info":testresult['info']}
     if flag==1:
-        print 'error in copy'
         copyres={'srcres':testres,'destres':destres}
         copy_res={"copyres":copyres,'state':1}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
     else:
-        print 'ok'
         copyres=[]
         for destip in iplist:
             result=getinfo(hostoption.filecopy(destip,hostip,filename,destpath),destip)
             copyres.append({"hostip":destip,"state":result['state'],"info":result['info']})
-            print destip
         copy_res = {"copyres":copyres,'state':0}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
