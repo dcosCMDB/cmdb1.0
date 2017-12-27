@@ -112,20 +112,18 @@ def copyfile(request):
     iplist=request.GET.get("iplist").split(';')
     destpath=request.GET.get("destpath")
     flag=0
-    destres=[]
+    testres=[]
     for destip in iplist:
         result=getinfo(hostoption.desttest(destip,destpath),destip)
         if result['state']!=0:
             flag=1
-            destres.append({"hostip":destip,"state":result['state'],"info":result['info']})
+            testres.append({"hostip":destip,"state":result['state'],"info":result['info']})
     testresult=getinfo(hostoption.filetest(hostip,filename),hostip)
-    testres={}
     if testresult['state']!=0:
         flag=1
-        testres={"hostip":hostip,"state":testresult['state'],"info":testresult['info']}
+        testres.append({"hostip":hostip,"state":testresult['state'],"info":testresult['info']})
     if flag==1:
-        copyres={'srcres':testres,'destres':destres}
-        copy_res={"copyres":copyres,'state':1}
+        copy_res={"copyres":testres,'state':1}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
     else:
         copyres=[]

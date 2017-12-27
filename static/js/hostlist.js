@@ -263,21 +263,12 @@ function copy(){
       result=ret.copyres
       state=ret.state
       if(state!=0){
-        destres=result['destres']
-        srcres=result['srcres']
-        context=''
-        for(i in destres){
-          context+=destres[i].hostip+':'+destres[i].info+'\n'
-        }
-        if(srcres.hasOwnProperty('info')){
-          context+=srcres.info
-        }
-        alert(context)
         $('#filetestbtn').removeClass('btn-success')
         $('#filetestbtn').addClass('btn-default')
         $('#desttestbtn').removeClass('btn-success')
         $('#desttestbtn').addClass('btn-default')
         $('#copybtn').attr('disabled','disabled')
+        resultshow(result)
       }
       else{
         alert('copy ok!')
