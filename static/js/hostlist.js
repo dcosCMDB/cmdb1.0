@@ -241,9 +241,6 @@ function copy(){
   var iplist=getcheckedhost()
   var filesrc=$('#copysrcfile').val()
   var destpath=$('#copydestpath').val()
-  console.log(iplist)
-  console.log(filesrc)
-  console.log(destpath)
   if(filesrc.split(':').length!=2){
     alert('illegal filename! filename should be hostip:filepath')
     return
@@ -268,6 +265,8 @@ function copy(){
         $('#desttestbtn').removeClass('btn-success')
         $('#desttestbtn').addClass('btn-default')
         $('#copybtn').attr('disabled','disabled')
+        $('#file').modal('hide');
+        alert('something wrong with the srcfile or destpath')
         resultshow(result)
       }
       else{

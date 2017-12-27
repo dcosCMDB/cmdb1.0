@@ -39,7 +39,7 @@ def testping(request):
             info='ping ok'
         elif pres['dark'].items()[0][0]!='':
             state=1
-            info='unknown'
+            info='host is unknown, check the ansible inventory!'
         pingresult.append({"hostip":item,"state":state,"info":info})
     ping_res = {"pingres":pingresult}
     return HttpResponse(json.dumps(ping_res), content_type='application/json')
@@ -61,7 +61,7 @@ def getinfo(result,hostip):
             info=stderr
     elif result['dark'].items()[0][0]!='':
         state=1
-        info='unknown'
+        info='host is unknown, check the ansible inventory!'
     ret['state']=state
     ret['info']=info
     return ret
