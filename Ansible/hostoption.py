@@ -47,11 +47,12 @@ def desttest(hostip,destpath):
     testres = testrunner.run()
     return testres
 
-def filecopy(destip,hostip,filename):
+def filecopy(destip,hostip,filename,destpath):
     testrunner = ansible.runner.Runner(
-        module_name='shell',
-        module_args='scp '+hostip+':'+filename+' '+destip,
-        pattern=hostip,
-        forks=10)
+        module_name='command',
+        module_args='scp '+hostip+':'+filename+' '+destpath,
+        pattern=destip,
+        forks=1)
     testres = testrunner.run()
+    print testres
     return testres

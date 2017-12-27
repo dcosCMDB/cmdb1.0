@@ -233,6 +233,9 @@ function copy(){
   var iplist=getcheckedhost()
   var filesrc=$('#copysrcfile').val()
   var destpath=$('#copydestpath').val()
+  console.log(iplist)
+  console.log(filesrc)
+  console.log(destpath)
   if(filesrc.split(':').length!=2){
     alert('illegal filename! filename should be hostip:filepath')
     return

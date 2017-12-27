@@ -123,13 +123,16 @@ def copyfile(request):
         flag=1
         testres={"hostip":hostip,"state":testresult['state'],"info":testresult['info']}
     if flag==1:
+        print 'error in copy'
         copyres={'srcres':testres,'destres':destres}
         copy_res={"copyres":copyres,'state':1}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
     else:
+        print 'ok'
         copyres=[]
         for destip in iplist:
-            result=getinfo(hostoption.filecopy(destip,hostip,filename),destip)
+            result=getinfo(hostoption.filecopy(destip,hostip,filename,destpath),destip)
             copyres.append({"hostip":destip,"state":result['state'],"info":result['info']})
+            print destip
         copy_res = {"copyres":copyres,'state':0}
         return HttpResponse(json.dumps(copy_res), content_type='application/json')
