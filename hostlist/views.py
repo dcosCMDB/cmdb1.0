@@ -109,13 +109,14 @@ def copyfile(request):
     hostip=request.GET.get("hostip")
     filename=request.GET.get("filename")
     iplist=request.GET.get("iplist").split(';')
+    destpath=request.GET.get("destpath")
     flag=0
     destres=[]
     for destip in iplist:
         result=getinfo(hostoption.desttest(destip,destpath),destip)
         if result['state']!=0:
             flag=1
-        destres.append({"hostip":destip,"state":result['state'],"info":result['info']})
+            destres.append({"hostip":destip,"state":result['state'],"info":result['info']})
     testresult=getinfo(hostoption.filetest(hostip,filename),hostip)
     testres={}
     if testresult['state']!=0:

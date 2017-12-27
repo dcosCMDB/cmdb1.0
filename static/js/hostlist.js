@@ -232,15 +232,26 @@ function testdest(){
 function copy(){
   var iplist=getcheckedhost()
   var filesrc=$('#copysrcfile').val()
+  var destpath=$('#copydestpath').val()
   if(filesrc.split(':').length!=2){
     alert('illegal filename! filename should be hostip:filepath')
+    return
+  }
+  if (destpath[destpath.length-1]!='/'){
+    alert("destpath should end with '/' !")
+    return
+  }
+  if (destpath[0]!='/'){
+    alert("destpath should begin with '/' !")
+    return
   }
   else{
     var hostip=filesrc.split(':')[0]
     var filename=filesrc.split(':')[1]
-    $.get("/copyfile",{'filename': filename,'hostip':hostip,'iplist': iplist.join(';')}, function (ret) {
+    $.get("/copyfile",{'filename': filename,'hostip':hostip,'iplist': iplist.join(';'),'destpath':destpath}, function (ret) {
       result=ret.copyres
       state=ret.state
+      console.log(result)
     }
     )
   }
