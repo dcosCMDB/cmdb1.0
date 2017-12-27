@@ -117,9 +117,10 @@ def copyfile(request):
             flag=1
         destres.append({"hostip":destip,"state":result['state'],"info":result['info']})
     testresult=getinfo(hostoption.filetest(hostip,filename),hostip)
+    testres={}
     if testresult['state']!=0:
         flag=1
-        testres={"hostip":hostip,"state":result['state'],"info":result['info']}
+        testres={"hostip":hostip,"state":testresult['state'],"info":testresult['info']}
     if flag==1:
         copyres={'srcres':testres,'destres':destres}
         copy_res={"copyres":copyres,'state':1}
