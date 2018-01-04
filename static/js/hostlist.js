@@ -16,16 +16,9 @@ $('#hosttable').bootstrapTable({
       title: '区域',
       sortable: true
   }, {
-      field: 'cpu',
-      title: 'CPU',
+      field: 'comp',
+      title: '组件',
       sortable: true
-  }, {
-      field: 'mem',
-      title: '内存',
-      sortable: true
-  }, {
-      field: 'filesys',
-      title: '文件系统'
   },{
       title: '<a href="#" onclick="checkall()">全选</a><span>||</span><a href="#" onclick="reverse()">反选</a>(<span id="numofselect">0</span>)', field: 'check',
         formatter: function (val, row, idx) {

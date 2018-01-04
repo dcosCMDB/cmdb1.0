@@ -5,6 +5,7 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 import json
 from CMDBpro.models import dcos_host
+from CMDBpro.models import components
 from Ansible import hostoption
 
 def showhost(request):
@@ -20,7 +21,14 @@ def searchhost(request):
     findall=dcos_host.objects.all()
     hostlist=[]
     for item in findall:
-    	hostlist.append({"hostip":item.host_ip,"hostname":item.host_name,"env":item.env,"cpu":item.cpu,"mem":item.mem,"filesys":item.filesys})
+        hostip=item.host_ip
+        findcomp=components.objects.filter(hostname=hostip).values('component').distinct()
+        comptext=''
+        for comp in findcomp:
+            comptext+= comp['component']+';'
+        if comptext!='':
+            print comptext
+        hostlist.append({"hostip":item.host_ip,"hostname":item.host_name,"env":item.env,"comp":comptext})
     host_res = {"hostlist": hostlist}
     return HttpResponse(json.dumps(host_res), content_type='application/json')
 
